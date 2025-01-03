@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Deviation Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <section class="section"> 
+    <div class="container">
+
+        <section class="hero is-success">
+            <div class="hero-body has-text-centered">
+                <p class="title">Standard Deviation Calculator</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <form action="/stddev" method="POST">
+                <div class="field">
+                    <label class="label has-text-white" for="numbers">Enter numbers (comma-separated):</label>
+                    <div class="control">
+                        <input class="input is-responsive" type="text" name="numbers" id="numbers" placeholder="e.g., 1, 2, 3, 4, 5" required>
+                    </div>
+                </div>
+                <div class="control">
+                    <button class="button is-primary is-fullwidth" type="submit">Calculate</button>
+                </div>
+            </form>
+            <br>
+            {% if result is not none %}
+                <div class="field">
+                    <label class="label has-text-white">Standard Deviation:</label>
+                    <p id="result-st" class="has-text-primary has-text-weight-bold">{{ result['std'] }}</p>
+                </div>
+                <div class="field">
+                    <label class="label has-text-white">Average:</label>
+                    <p id="result-avg" class="has-text-info has-text-weight-bold">{{ result['avg'] }}</p>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <strong>Calculator</strong> &nbsp; by &nbsp;<a href="https://www.linkedin.com/in/anroman/">Andres Roman</a>.&nbsp;
+                Student of <a href="https://catalogue.rrc.ca/Programs/WPG/Fulltime/BUSGF-DP">&nbsp;BIT</a> &nbsp;at&nbsp;
+                <a href="https://www.rrc.ca/">
+                    <img src="https://www.rrc.ca/marcom/wp-content/uploads/sites/1/sites/99/2022/08/RRC-Polytech-Horizontal.png" alt="RRC logo" width="150">
+                </a>.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateSD() {
+            const numbers = document.getElementById('numbers').value.split(',').map(Number);
+            const n = numbers.length;
+
+            if (n === 0 || numbers.includes(NaN)) {
+                document.getElementById('result-st').textContent = "Please enter valid numbers.";
+                return;
+            }
+
+            const mean = numbers.reduce((acc, val) => acc + val, 0) / n;
+            const variance = numbers.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / n;
+            const stdDeviation = Math.sqrt(variance).toFixed(2);
+
+            document.getElementById('result-st').textContent = stdDeviation;
+        }
+    </script>
+</body>
+</html>

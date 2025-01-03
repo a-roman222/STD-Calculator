@@ -1,0 +1,23 @@
+html {
+    background-color: #24292e;
+}
+.hero {border-radius: 5px;}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+body {
+    font-family: 'Oxygen', serif;
+    background-image: url('texture.png');
+    background-repeat: repeat/no-repeat;
+}
+.section {
+    flex: 1; /* This allows the section to grow and fill the space */
+}
+.footer {
+    margin-top: auto; /* This pushes the footer to the bottom */
+}
